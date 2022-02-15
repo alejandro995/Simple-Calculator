@@ -17,7 +17,7 @@ describe ('main.js', function (){
 
             document.body.appendChild(element);
 
-            this.element = element; //remember the encloucer that can afect the context if we use arrow function instead in the call back function above. 
+            this.element = element; //remembers the encloucer that can afect the context if we use arrow function instead in the call back function above. 
         });
 
         afterAll(function() {
