@@ -1,6 +1,25 @@
 describe ('main.js', function (){
     describe('calculate()', function() {
-        it('Validates expression');
+        it('Validates expression when the first number is invalid', function(){
+            spyOn(window, 'updateResult').and.stub();
+            calculate('a+3');
+
+            expect(window.updateResult).toHaveBeenCalled();
+        });
+
+        it('Validates expression when the second number is invalid', function(){
+            spyOn(window, 'updateResult'); // and.stub() is the default behaviour and can be omitted
+            calculate('3+a');
+
+            expect(window.updateResult).toHaveBeenCalled();
+        });
+
+        it('Validates expression when operation is invalid', function(){
+            spyOn(window, 'updateResult');
+            calculate('3_4');
+
+            expect(window.updateResult).toHaveBeenCalled();
+        });
         it('calls add');
         it('calls substract');
         it('calls multiply');
