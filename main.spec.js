@@ -5,6 +5,7 @@ describe ('main.js', function (){
             calculate('a+3');
 
             expect(window.updateResult).toHaveBeenCalled();
+            expect(window.updateResult).toHaveBeenCalledWith('Operation not Recognized');
         });
 
         it('Validates expression when the second number is invalid', function(){
