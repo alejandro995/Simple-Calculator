@@ -10,8 +10,55 @@ describe('calculator.js', function () {
         })
 
         afterEach(function () {
-            
+
         })
+
+        
+        it('should initialize the total', function() {
+
+            expect(calculator.total).toBe(0); //Tobe is a ===
+            expect(calculator.total).toBeFalsy();
+        });
+    
+        it('has constructor', function() {
+
+            expect(calculator).toEqual(calculator2); //ToEqual is a deep key and value comparitions 
+        });
+    
+        it('can be instantiated', function() {
+
+            expect(calculator).toBeTruthy();
+            expect(calculator2).toBeTruthy();
+        });
+    
+        it(' instantiates  unique object', function() {
+
+            expect(calculator).not.toBe(calculator2);
+        });
+    
+        it(' can overwrite total', function() {
+            calculator.total = null;
+            expect(calculator.total).toBeNull();
+        });
+    
+        it(' constructor name is calculator', function() {
+            expect(calculator.constructor.name).toContain("Calc");
+        });
+    
+        it(' returns total', function() {
+            calculator.total = 50;
+            expect(calculator.add(20)).toBe(70);
+            expect(calculator.total).toMatch(/-?\d+/);
+            expect(typeof calculator.total).toMatch('number');
+            expect(calculator.total).toEqual(jasmine.anything());
+        });
+    
+        it(' should use the custom matchers', function() {
+            jasmine.addMatchers(customMatchers);
+            calculator.total = 50;
+            expect(calculator).toBeCalculator();
+    
+        });
 
         describe('add()', function () {
 
@@ -68,51 +115,16 @@ describe('calculator.js', function () {
             });
         })
 
+        describe('get version', function(){
+            it('feches version from external srouce', async function(done){
+                spyOn(window, 'fetch').and.returnValue(Promise.resolve(
+                    new Response('{ "version": "0.1"}')
+                ));
+                const version = await calculator.version
+                    expect(version).toBe('0.1');
 
-        it('should initialize the total', function() {
-
-            expect(calculator.total).toBe(0); //Tobe is a ===
-            expect(calculator.total).toBeFalsy();
-        });
-    
-        it('has constructor', function() {
-
-            expect(calculator).toEqual(calculator2); //ToEqual is a deep key and value comparitions 
-        });
-    
-        it('can be instantiated', function() {
-
-            expect(calculator).toBeTruthy();
-            expect(calculator2).toBeTruthy();
-        });
-    
-        it(' instantiates  unique object', function() {
-
-            expect(calculator).not.toBe(calculator2);
-        });
-    
-        it(' can overwrite total', function() {
-            calculator.total = null;
-            expect(calculator.total).toBeNull();
-        });
-    
-        it(' constructor name is calculator', function() {
-            expect(calculator.constructor.name).toContain("Calc");
-        });
-    
-        it(' returns total', function() {
-            calculator.total = 50;
-            expect(calculator.add(20)).toBe(70);
-            expect(calculator.total).toMatch(/-?\d+/);
-            expect(typeof calculator.total).toMatch('number');
-            expect(calculator.total).toEqual(jasmine.anything());
-        });
-    
-        it(' should use the custom matchers', function() {
-            jasmine.addMatchers(customMatchers);
-            calculator.total = 50;
-            expect(calculator).toBeCalculator();
-    
-        });
+                    done();
+            })
+        })
     })
 });

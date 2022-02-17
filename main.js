@@ -22,7 +22,7 @@ function calculate(inputValue){
            result = calculator.add(numberB);
            break;
         case '-':
-            result = calculator.subtract(numberB);
+            result = calculator.substract(numberB);
            break;
         case '*':
             result = calculator.multiply(numberB);
@@ -42,4 +42,12 @@ function updateResult(result){
     if(element){
         element.innerText = result;
     }
+}
+
+function showVersion(){
+    const calculator = new Calculator();
+    const element = document.getElementById('version');
+
+    calculator.version.then( (version) =>
+    element.innerText = version)
 }

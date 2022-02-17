@@ -20,3 +20,19 @@ Calculator.prototype.divide = function(number) {
     }
     return this.total /= number;
 }
+
+Object.defineProperty(Calculator.prototype, 'version', {
+    get: function() {
+        return fetch('https://gist.githubusercontent.com/juanlizarazo/4b2d229ba483ca13b1a6d7bf3079dc8b/raw')
+            .then(
+                function(result) {
+                    return result.json()
+                }
+            )
+            .then(function(json) {
+                return json.version;
+            })
+    },
+    enumerable: true,
+    configurable: true
+})
